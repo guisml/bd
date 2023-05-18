@@ -1,3 +1,11 @@
+--  Criação do usuário --
+
+    create user guilherme;
+
+-----------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
 -- Criação Banco de Dados --
 
 DROP DATABASE IF EXISTS UVV ;
@@ -11,14 +19,6 @@ CREATE DATABASE UVV
     TABLESPACE = pg_default
     CONNECTION LIMIT = -1
     IS_TEMPLATE = False;
------------------------------------------------------------------------------------------------------------------------------------------------
-
-
-
---  Criação do usuário --
-
-    create user guilherme;
-
 -----------------------------------------------------------------------------------------------------------------------------------------------
 
 
@@ -94,18 +94,18 @@ CREATE TABLE lojas.clientes (
 
 -- Criação da tabela lojas--
 CREATE TABLE lojas.lojas (
-                loja_id1                    NUMERIC(38) NOT NULL,
-                nome                        VARCHAR(255) NOT NULL,
-                endereco_web                VARCHAR(100) NOT NULL,
-                endereco_fisico             VARCHAR(512) NOT NULL,
-                latitude                    NUMERIC,
-                longitude                   NUMERIC,
-                logo                        BYTEA NOT NULL,
-                logo_mime_type              VARCHAR(512) NOT NULL,
-                logo_arquivo                VARCHAR(512) NOT NULL,
-                logo_charset                VARCHAR(512) NOT NULL,
-                logo_ultima_atualizacao     DATE NOT NULL,
-                CONSTRAINT loja_id          PRIMARY KEY (loja_id1)
+                loja_id1                                          NUMERIC(38) NOT NULL,
+                nome                                              VARCHAR(255) NOT NULL,
+                endereco_web                                      VARCHAR(100) NOT NULL,
+                endereco_fisico                                   VARCHAR(512) NOT NULL,
+                latitude                                          NUMERIC,
+                longitude                                         NUMERIC,
+                logo                                              BYTEA NOT NULL,
+                logo_mime_type                                    VARCHAR(512) NOT NULL,
+                logo_arquivo                                      VARCHAR(512) NOT NULL,
+                logo_charset                                      VARCHAR(512) NOT NULL,
+                logo_ultima_atualizacao                           DATE NOT NULL,
+                CONSTRAINT loja_id                                PRIMARY KEY (loja_id1)
 );
 
 -- Comentários da tabela lojas --
@@ -130,16 +130,16 @@ CREATE TABLE lojas.lojas (
 -- Criação da tabela pedidos --
 
 CREATE TABLE lojas.pedidos (
-                pedido_id               NUMERIC(38) NOT NULL,
-                cliente_id              NUMERIC(38) NOT NULL,
-                data_hora               TIMESTAMP NOT NULL,
-                status                  VARCHAR(15) NOT NULL,
-                loja_id                 NUMERIC(38) NOT NULL,
-                CONSTRAINT pedido_id    PRIMARY KEY (pedido_id)
+                pedido_id                              NUMERIC(38) NOT NULL,
+                cliente_id                             NUMERIC(38) NOT NULL,
+                data_hora                              TIMESTAMP NOT NULL,
+                status                                 VARCHAR(15) NOT NULL,
+                loja_id                                NUMERIC(38) NOT NULL,
+                CONSTRAINT pedido_id                   PRIMARY KEY (pedido_id)
 );
    
 -- Comentários da tabela pedidos --
-    COMMENT ON TABLE  lojas.pedidos IS                  'tabela para os pedidos da loja';
+    COMMENT ON TABLE  lojas.pedidos IS                 'tabela para os pedidos da loja';
     COMMENT ON COLUMN lojas.pedidos.pedido_id IS       'coluna para o id do pedido';
     COMMENT ON COLUMN lojas.pedidos.cliente_id IS      'coluna para o id do cliente que fez o pedido';
     COMMENT ON COLUMN lojas.pedidos.data_hora IS       'coluna para a data e a hora que foi feito o pedido';
@@ -154,11 +154,11 @@ CREATE TABLE lojas.pedidos (
 -- Criação da tabela estoques--
 
 CREATE TABLE lojas.estoques (
-                estoque_id                  NUMERIC(38) NOT NULL,
-                loja_id                     NUMERIC(38) NOT NULL,
-                produto_id                  NUMERIC(38) NOT NULL,
-                quantidade                  NUMERIC(38) NOT NULL,
-                CONSTRAINT estoque_id       PRIMARY KEY (estoque_id)
+                estoque_id                                 NUMERIC(38) NOT NULL,
+                loja_id                                    NUMERIC(38) NOT NULL,
+                produto_id                                 NUMERIC(38) NOT NULL,
+                quantidade                                 NUMERIC(38) NOT NULL,
+                CONSTRAINT estoque_id                      PRIMARY KEY (estoque_id)
 );
 
 -- Comentários da tabela estoques --
@@ -176,12 +176,12 @@ CREATE TABLE lojas.estoques (
 -- Criação da tabela envios--
 
 CREATE TABLE lojas.envios (
-                envio_id                    VARCHAR(38) NOT NULL,
-                loja_id                     NUMERIC(38) NOT NULL,
-                cliente_id                  NUMERIC(38) NOT NULL,
-                endereco_entrega            VARCHAR(512) NOT NULL,
-                stuatus                     VARCHAR(15) NOT NULL,
-                CONSTRAINT envio_id         PRIMARY KEY (envio_id)
+                envio_id                                      VARCHAR(38) NOT NULL,
+                loja_id                                       NUMERIC(38) NOT NULL,
+                cliente_id                                    NUMERIC(38) NOT NULL,
+                endereco_entrega                              VARCHAR(512) NOT NULL,
+                stuatus                                       VARCHAR(15) NOT NULL,
+                CONSTRAINT envio_id                           PRIMARY KEY (envio_id)
 );
 
 -- Comentários da tabela envios --
@@ -200,13 +200,13 @@ CREATE TABLE lojas.envios (
 -- Criação da tabela pedidos_itens --
 
 CREATE TABLE lojas.pedidos_itens (
-                produto_id                      NUMERIC(38) NOT NULL,
-                pedido_id                       NUMERIC(38) NOT NULL,
-                numero_da_linha                 NUMERIC(38) NOT NULL,
-                preco_unitario                  NUMERIC(10,2) NOT NULL,
-                quantidade                      NUMERIC(38) NOT NULL,
-                envio_id                        VARCHAR(38) NOT NULL,
-                CONSTRAINT pedido_id1           PRIMARY KEY (produto_id, pedido_id)
+                produto_id                                      NUMERIC(38) NOT NULL,
+                pedido_id                                       NUMERIC(38) NOT NULL,
+                numero_da_linha                                 NUMERIC(38) NOT NULL,
+                preco_unitario                                  NUMERIC(10,2) NOT NULL,
+                quantidade                                      NUMERIC(38) NOT NULL,
+                envio_id                                        VARCHAR(38) NOT NULL,
+                CONSTRAINT pedido_id1                           PRIMARY KEY (produto_id, pedido_id)
 );
 
 -- Comentários da tabela pedidos_itens --
