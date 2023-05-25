@@ -11,6 +11,7 @@ DROP USER IF EXISTS guilherme;
 
 
 
+
 -----------------------------------------------------------------------------------------------------------------------------------------------
 -- Criação do usuário --
 CREATE USER guilherme WITH
@@ -19,6 +20,7 @@ CREATEROLE
 ENCRYPTED PASSWORD '202306723';
 
 -----------------------------------------------------------------------------------------------------------------------------------------------
+
 
 
 
@@ -39,6 +41,7 @@ CREATE DATABASE uvv
 
 
 
+
 -----------------------------------------------------------------------------------------------------------------------------------------------
 -- Conexão com o usuário --
 
@@ -46,6 +49,7 @@ CREATE DATABASE uvv
 \c UVV guilherme
 
 -----------------------------------------------------------------------------------------------------------------------------------------------
+
 
 
 
@@ -59,6 +63,7 @@ CREATE DATABASE uvv
     SET search_path TO lojas;
 
 -----------------------------------------------------------------------------------------------------------------------------------------------
+
 
 
 
@@ -77,8 +82,10 @@ CREATE DATABASE uvv
                 imagem_ultima_atualizacao   DATE NOT NULL,
                 CONSTRAINT produto_id       PRIMARY KEY (produto_id)
 );
-    
-    
+     
+   
+  
+  
 -- Comentários da tabela produtos --
     COMMENT ON TABLE  lojas.produtos IS                                    'tabela para os produtos da loja';
     COMMENT ON COLUMN lojas.produtos.produto_id IS                         'coluna para o id dos produtos';
@@ -107,7 +114,10 @@ CREATE TABLE lojas.clientes (
                 telefone3                   VARCHAR(20) NOT NULL,
                 CONSTRAINT cliente_id       PRIMARY KEY (cliente_id1)
 );
-       
+ 
+ 
+ 
+ 
 -- Comentários da tabela clientes -- 
     COMMENT ON TABLE  lojas.clientes IS                    'tabela para os clientes da loja';
     COMMENT ON COLUMN lojas.clientes.cliente_id1 IS        'coluna para o id do cliente';
@@ -138,6 +148,9 @@ CREATE TABLE lojas.lojas (
                 CONSTRAINT loja_id                                PRIMARY KEY (loja_id1)
 );
 
+
+
+
 -- Comentários da tabela lojas --
     COMMENT ON TABLE lojas.lojas IS                                'tabela para as lojas';
     COMMENT ON COLUMN lojas.lojas.loja_id1 IS                      'coluna para o id da loja';
@@ -167,7 +180,10 @@ CREATE TABLE lojas.pedidos (
                 loja_id                                NUMERIC(38) NOT NULL,
                 CONSTRAINT pedido_id                   PRIMARY KEY (pedido_id)
 );
-   
+ 
+ 
+ 
+ 
 -- Comentários da tabela pedidos --
     COMMENT ON TABLE  lojas.pedidos IS                 'tabela para os pedidos da loja';
     COMMENT ON COLUMN lojas.pedidos.pedido_id IS       'coluna para o id do pedido';
@@ -190,6 +206,9 @@ CREATE TABLE lojas.estoques (
                 quantidade                                 NUMERIC(38) NOT NULL,
                 CONSTRAINT estoque_id                      PRIMARY KEY (estoque_id)
 );
+
+
+
 
 -- Comentários da tabela estoques --
     COMMENT ON TABLE  lojas.estoques IS                    'tabela para o estoque da loja';
@@ -214,7 +233,11 @@ CREATE TABLE lojas.envios (
                 CONSTRAINT envio_id                           PRIMARY KEY (envio_id)
 );
 
+
+
+
 -- Comentários da tabela envios --
+
     COMMENT ON TABLE  lojas.envios IS                         'tabela para os envios da loja';
     COMMENT ON COLUMN lojas.envios.envio_id IS                'coluna para o id do envio';
     COMMENT ON COLUMN lojas.envios.loja_id IS                 'coluna para o id da loja';
@@ -222,7 +245,7 @@ CREATE TABLE lojas.envios (
     COMMENT ON COLUMN lojas.envios.endereco_entrega IS        'coluna para o endereço da entrega';
     COMMENT ON COLUMN lojas.envios.stuatus IS                 'coluna para o status dos envios';
 
-    -----------------------------------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
@@ -239,27 +262,33 @@ CREATE TABLE lojas.pedidos_itens (
                 CONSTRAINT pedido_id1                           PRIMARY KEY (produto_id, pedido_id)
 );
 
+
+
+
 -- Comentários da tabela pedidos_itens --
-COMMENT ON TABLE  lojas.pedidos_itens IS                       'tabela para os pedidos em relação aos itens da loja';
-COMMENT ON COLUMN lojas.pedidos_itens.produto_id IS            'coluna para o id dos produtos';
-COMMENT ON COLUMN lojas.pedidos_itens.pedido_id IS             'coluna para o id do pedido';
-COMMENT ON COLUMN lojas.pedidos_itens.numero_da_linha IS       'coluna para o numero da linha dos pedidos';
-COMMENT ON COLUMN lojas.pedidos_itens.preco_unitario IS        'coluna para o preço unitário dos pedidos';
-COMMENT ON COLUMN lojas.pedidos_itens.quantidade IS            'coluna para a quantidade de pedidos';
-COMMENT ON COLUMN lojas.pedidos_itens.envio_id IS              'coluna para o id dos envios';
+
+    COMMENT ON TABLE  lojas.pedidos_itens IS                       'tabela para os pedidos em relação aos itens da loja';
+    COMMENT ON COLUMN lojas.pedidos_itens.produto_id IS            'coluna para o id dos produtos';
+    COMMENT ON COLUMN lojas.pedidos_itens.pedido_id IS             'coluna para o id do pedido';
+    COMMENT ON COLUMN lojas.pedidos_itens.numero_da_linha IS       'coluna para o numero da linha dos pedidos';
+    COMMENT ON COLUMN lojas.pedidos_itens.preco_unitario IS        'coluna para o preço unitário dos pedidos';
+    COMMENT ON COLUMN lojas.pedidos_itens.quantidade IS            'coluna para a quantidade de pedidos';
+    COMMENT ON COLUMN lojas.pedidos_itens.envio_id IS              'coluna para o id dos envios';
 
 -----------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
 
---restrições-- 
+-- Criação das Chaves Estrangeiras --
+
 ALTER TABLE lojas.estoques ADD CONSTRAINT produtos_estoques_fk
 FOREIGN KEY (produto_id)
 REFERENCES lojas.produtos (produto_id)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION
 NOT DEFERRABLE;
+
 
 ALTER TABLE lojas.pedidos_itens ADD CONSTRAINT produtos_pedidos_itens_fk
 FOREIGN KEY (produto_id)
@@ -268,12 +297,14 @@ ON DELETE NO ACTION
 ON UPDATE NO ACTION
 NOT DEFERRABLE;
 
+
 ALTER TABLE lojas.pedidos ADD CONSTRAINT clientes_pedidos_fk
 FOREIGN KEY (cliente_id)
 REFERENCES lojas.clientes (cliente_id1)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION
 NOT DEFERRABLE;
+
 
 ALTER TABLE lojas.envios ADD CONSTRAINT clientes_envios_fk
 FOREIGN KEY (cliente_id)
@@ -282,12 +313,14 @@ ON DELETE NO ACTION
 ON UPDATE NO ACTION
 NOT DEFERRABLE;
 
+
 ALTER TABLE lojas.envios ADD CONSTRAINT lojas_envios_fk
 FOREIGN KEY (loja_id)
 REFERENCES lojas.lojas (loja_id1)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION
 NOT DEFERRABLE;
+
 
 ALTER TABLE lojas.estoques ADD CONSTRAINT lojas_estoques_fk
 FOREIGN KEY (loja_id)
@@ -296,6 +329,7 @@ ON DELETE NO ACTION
 ON UPDATE NO ACTION
 NOT DEFERRABLE;
 
+
 ALTER TABLE lojas.pedidos ADD CONSTRAINT lojas_pedidos_fk
 FOREIGN KEY (loja_id)
 REFERENCES lojas.lojas (loja_id1)
@@ -303,12 +337,14 @@ ON DELETE NO ACTION
 ON UPDATE NO ACTION
 NOT DEFERRABLE;
 
+
 ALTER TABLE lojas.pedidos_itens ADD CONSTRAINT pedidos_pedidos_itens_fk
 FOREIGN KEY (pedido_id)
 REFERENCES lojas.pedidos (pedido_id)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION
 NOT DEFERRABLE;
+
 
 ALTER TABLE lojas.pedidos_itens ADD CONSTRAINT envios_pedidos_itens_fk
 FOREIGN KEY (envio_id)
