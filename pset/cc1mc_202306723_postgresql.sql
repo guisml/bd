@@ -359,51 +359,50 @@ NOT DEFERRABLE;
 
 -- Restrições das colunas --
 
-- Restrição de valor mínimo para o preço unitário -
+-- Restrição de valor mínimo para o preço unitário --
 ALTER TABLE lojas.produtos
 ADD CONSTRAINT check_preco_unitario_min CHECK (preco_unitario >= 0);
 
 
-- Restrição de formato de email válido -
+-- Restrição de formato de email válido --
 ALTER TABLE lojas.clientes
 ADD CONSTRAINT check_email_format CHECK (email ~* '^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$');
 
 
-- Restrição de telefone -
+-- Restrição de telefone --
 ALTER TABLE lojas.clientes
 ADD CONSTRAINT check_telefone1_clientes CHECK (LENGTH(telefone1) >= 5 AND LENGTH(telefone1) <= 20);
 
 
-- Restrição de valores não nulos para as colunas latitude e longitude -
+-- Restrição de valores não nulos para as colunas latitude e longitude --
 ALTER TABLE lojas.lojas
 ADD CONSTRAINT check_latitude_lojas CHECK (latitude >= -90 AND latitude <= 90);
-
 
 ALTER TABLE lojas.lojas
 ADD CONSTRAINT check_longitude_lojas CHECK (longitude >= -180 AND longitude <= 180);
 
 
-- Restrição de status válido -
+-- Restrição de status válido --
 ALTER TABLE lojas.pedidos
 ADD CONSTRAINT check_status_valido CHECK (status IN ('CANCELADO', 'COMPLETO', 'ABERTO', 'PAGO', 'REEMBOLSADO', 'ENVIADO'));
 
 
-- Restrição de quantidade mínima no estoque -
+-- Restrição de quantidade mínima no estoque --
 ALTER TABLE lojas.estoques
 ADD CONSTRAINT check_quantidade_min CHECK (quantidade >= 0);
 
 
-- Restrição de status válido -
+-- Restrição de status válido --
 ALTER TABLE lojas.envios
 ADD CONSTRAINT check_status_valido CHECK (status IN ('enviado', 'pendente'));
 
 
-- Restrição da quantidade de pedidos -
+-- Restrição da quantidade de pedidos --
 ALTER TABLE lojas.pedidos_itens
 ADD CONSTRAINT check_quantidade_pedidos_itens CHECK (quantidade >= 0);
 
 
-- restrição de nome -
+-- restrição de nome --
 ALTER TABLE lojas.lojas
 ADD CONSTRAINT unico_nome_lojas 
 UNIQUE (nome);
